@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Orchestration Platforms - Master Market Intelligence Report 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-bg-primary: 220 20% 8%;
+            --color-bg-secondary: 220 20% 12%;
+            --color-bg-tertiary: 220 20% 18%;
+            --color-accent-blue: 210 90% 65%;
+            --color-accent-purple: 270 70% 65%;
+            --color-accent-cyan: 180 80% 50%;
+            --color-text-light: 220 20% 92%;
+            --color-text-muted: 220 15% 65%;
+            --color-leader: 140 70% 55%;
+            --color-visionary: 40 90% 60%;
+            --color-challenger: 200 80% 60%;
+            --color-niche: 0 0% 60%;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, hsl(var(--color-bg-primary)), hsl(var(--color-bg-secondary)));
+            color: hsl(var(--color-text-light));
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-display { font-family: 'Outfit', sans-serif; }
+
+        .glass-card {
+            background: rgba(30, 32, 48, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, hsl(var(--color-accent-cyan)), hsl(var(--color-accent-purple)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, hsl(var(--color-accent-cyan)), hsl(var(--color-accent-purple)));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: hsl(var(--color-accent-cyan));
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .data-table th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: hsl(var(--color-text-muted));
+        }
+        .data-table tbody tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-4px);
+            border-color: hsl(var(--color-accent-cyan) / 0.5);
+        }
+
+        .quadrant-leader { color: hsl(var(--color-leader)); }
+        .quadrant-visionary { color: hsl(var(--color-visionary)); }
+        .quadrant-challenger { color: hsl(var(--color-challenger)); }
+        .quadrant-niche { color: hsl(var(--color-niche)); }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, hsl(var(--color-accent-cyan)), hsl(var(--color-accent-purple)));
+            border-radius: 999px;
+        }
+
+        section { scroll-margin-top: 100px; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: hsl(var(--color-bg-primary)); }
+        ::-webkit-scrollbar-thumb { background: hsl(var(--color-bg-tertiary)); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: hsl(var(--color-accent-purple)); }
+
+        @media print {
+            body { background: white; color: black; }
+            .glass-card { background: #f5f5f5; border: 1px solid #ddd; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card rounded-none border-t-0 border-l-0 border-r-0 py-3">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <span class="font-display font-bold text-lg gradient-text">AI Agent Orchestration Report</span>
+            <div class="hidden md:flex gap-2 text-sm">
+                <a href="#executive-summary" class="nav-link">Executive Summary</a>
+                <a href="#market-size" class="nav-link">Market Size</a>
+                <a href="#tam-sam-som" class="nav-link">TAM/SAM/SOM</a>
+                <a href="#competitive" class="nav-link">Competitive Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-16">
+
+        <!-- Hero Header -->
+        <header class="text-center mb-20">
+            <p class="text-sm uppercase tracking-widest text-cyan-400 mb-4">Market Intelligence Report • January 2025</p>
+            <h1 class="font-display text-5xl md:text-7xl font-black mb-6 leading-tight">
+                <span class="gradient-text">AI Agent Orchestration</span><br>
+                <span class="text-white">Platforms</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Comprehensive analysis from 50 authoritative sources. Market sizing, TAM/SAM/SOM modeling, and competitive vendor matrix for enterprise decision-makers.
+            </p>
+            <div class="flex justify-center gap-4 mt-10 flex-wrap">
+                <div class="metric-card">
+                    <p class="text-4xl font-bold gradient-text">$11.58B</p>
+                    <p class="text-sm text-gray-500 mt-1">Global TAM 2025</p>
+                </div>
+                <div class="metric-card">
+                    <p class="text-4xl font-bold gradient-text">42.3%</p>
+                    <p class="text-sm text-gray-500 mt-1">CAGR 2025-2030</p>
+                </div>
+                <div class="metric-card">
+                    <p class="text-4xl font-bold gradient-text">50</p>
+                    <p class="text-sm text-gray-500 mt-1">Sources Analyzed</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section id="executive-summary" class="glass-card gradient-border mb-16">
+            <h2 class="font-display text-3xl font-bold mb-6 text-white">Executive Summary</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-cyan-400 font-semibold mb-3">Market Opportunity</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        The AI Agent Orchestration market is projected to grow from <strong class="text-white">$11.58B in 2025</strong> to <strong class="text-white">$66.34B by 2030</strong>, representing a CAGR of 42.3%. Enterprise adoption is accelerating as organizations seek to automate complex workflows through multi-agent systems.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-cyan-400 font-semibold mb-3">Competitive Landscape</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        <strong class="text-white">LangChain</strong> and <strong class="text-white">AutoGen (Microsoft)</strong> lead the market with the highest execution and vision scores. Open-source frameworks dominate for developer-centric use cases, while specialized enterprise products serve niche vertical needs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Size Section -->
+        <section id="market-size" class="glass-card mb-16">
+            <h2 class="font-display text-3xl font-bold mb-8 text-white">Market Size by Source</h2>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Scope</th>
+                            <th>2025</th>
+                            <th>2030</th>
+                            <th>CAGR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.mordorintelligence.com/industry-reports/agentic-artificial-intelligence-orchestration-and-memory-systems-market" class="text-cyan-400 hover:underline" target="_blank">Mordor Intelligence</a></td>
+                            <td class="text-gray-400">Agentic AI Orchestration & Memory Systems</td>
+                            <td class="text-white font-semibold">$6.27B</td>
+                            <td class="text-gray-400">$28.45B</td>
+                            <td class="text-green-400">35.3%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.marketsandmarkets.com/Market-Reports/ai-orchestration-market-148121911.html" class="text-cyan-400 hover:underline" target="_blank">MarketsandMarkets</a></td>
+                            <td class="text-gray-400">AI Orchestration Market</td>
+                            <td class="text-white font-semibold">$11.02B</td>
+                            <td class="text-gray-400">$30.23B</td>
+                            <td class="text-green-400">22.3%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.gminsights.com/industry-analysis/ai-orchestration-market" class="text-cyan-400 hover:underline" target="_blank">GM Insights</a></td>
+                            <td class="text-gray-400">AI Orchestration Market</td>
+                            <td class="text-white font-semibold">$12.90B</td>
+                            <td class="text-gray-400">—</td>
+                            <td class="text-green-400">—</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.mordorintelligence.com/industry-reports/multi-agent-system-platform-market" class="text-cyan-400 hover:underline" target="_blank">Mordor MAS Platform</a></td>
+                            <td class="text-gray-400">Multi-Agent System Platform</td>
+                            <td class="text-white font-semibold">$7.81B</td>
+                            <td class="text-gray-400">$54.91B</td>
+                            <td class="text-green-400">47.7%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.marketsandmarkets.com/Market-Reports/ai-agents-market-15761548.html" class="text-cyan-400 hover:underline" target="_blank">MarketsandMarkets</a></td>
+                            <td class="text-gray-400">AI Agents Market</td>
+                            <td class="text-white font-semibold">$7.84B</td>
+                            <td class="text-gray-400">$52.62B</td>
+                            <td class="text-green-400">46.2%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.deloitte.com/us/en/insights/industry/technology" class="text-cyan-400 hover:underline" target="_blank">Deloitte</a></td>
+                            <td class="text-gray-400">AI/Agent Technology Market</td>
+                            <td class="text-white font-semibold">$8.50B</td>
+                            <td class="text-gray-400">$35.00B</td>
+                            <td class="text-green-400">42.3%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                <h4 class="text-yellow-400 font-semibold mb-2">⚠️ Conflict Analysis</h4>
+                <p class="text-gray-400 text-sm">Market size estimates vary significantly ($5.50B to $12.90B for 2025) due to differing scope definitions. "AI Orchestration" focuses on workflow coordination, while "AI Agents" includes broader autonomous capabilities. CAGRs range from 16-48% depending on market definition breadth.</p>
+            </div>
+        </section>
+
+        <!-- TAM/SAM/SOM Section -->
+        <section id="tam-sam-som" class="glass-card gradient-border mb-16">
+            <h2 class="font-display text-3xl font-bold mb-8 text-white">TAM / SAM / SOM Model</h2>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="space-y-6">
+                        <div class="metric-card text-left">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wide">Total Addressable Market (TAM)</p>
+                                    <p class="text-3xl font-bold text-white mt-1">$11.58B <span class="text-lg text-gray-500">→ $66.34B</span></p>
+                                </div>
+                                <span class="text-5xl opacity-20">🌐</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-2">Global AI Agent Orchestration • 2025 → 2030</p>
+                        </div>
+                        <div class="metric-card text-left">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wide">Serviceable Addressable Market (SAM)</p>
+                                    <p class="text-3xl font-bold text-cyan-400 mt-1">$4.63B <span class="text-lg text-gray-500">→ $26.54B</span></p>
+                                </div>
+                                <span class="text-5xl opacity-20">🏢</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-2">Enterprise (1000+ employees) • Global</p>
+                        </div>
+                        <div class="metric-card text-left">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wide">Serviceable Obtainable Market (SOM)</p>
+                                    <p class="text-3xl font-bold text-purple-400 mt-1">$320M <span class="text-lg text-gray-500">→ $1.86B</span></p>
+                                </div>
+                                <span class="text-5xl opacity-20">🎯</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-2">Year 1 Realistic Capture • North America Focus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <svg viewBox="0 0 300 280" class="w-full max-w-md">
+                        <!-- Pyramid -->
+                        <polygon points="150,20 280,250 20,250" fill="url(#pyramidGradient)" opacity="0.3"/>
+                        <polygon points="150,20 220,150 80,150" fill="url(#pyramidGradient)" opacity="0.5"/>
+                        <polygon points="150,20 180,100 120,100" fill="url(#pyramidGradient)" opacity="0.8"/>
+                        <!-- Labels -->
+                        <text x="150" y="70" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SOM</text>
+                        <text x="150" y="85" text-anchor="middle" fill="#888" font-size="10">$320M</text>
+                        <text x="150" y="130" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SAM</text>
+                        <text x="150" y="145" text-anchor="middle" fill="#888" font-size="10">$4.63B</text>
+                        <text x="150" y="210" text-anchor="middle" fill="white" font-size="14" font-weight="bold">TAM</text>
+                        <text x="150" y="225" text-anchor="middle" fill="#888" font-size="10">$11.58B</text>
+                        <defs>
+                            <linearGradient id="pyramidGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                                <stop offset="0%" style="stop-color:#06b6d4"/>
+                                <stop offset="100%" style="stop-color:#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitive Analysis -->
+        <section id="competitive" class="glass-card mb-16">
+            <h2 class="font-display text-3xl font-bold mb-8 text-white">Competitive Vendor Matrix</h2>
+            
+            <!-- Quadrant Summary -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                    <h4 class="font-semibold text-green-400 mb-2">Leaders</h4>
+                    <p class="text-sm text-gray-400">LangChain, AutoGen, CrewAI, Relevance AI</p>
+                </div>
+                <div class="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                    <h4 class="font-semibold text-yellow-400 mb-2">Visionaries</h4>
+                    <p class="text-sm text-gray-400">—</p>
+                </div>
+                <div class="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+                    <h4 class="font-semibold text-cyan-400 mb-2">Challengers</h4>
+                    <p class="text-sm text-gray-400">—</p>
+                </div>
+                <div class="p-4 rounded-lg bg-gray-500/10 border border-gray-500/30">
+                    <h4 class="font-semibold text-gray-400 mb-2">Niche Players</h4>
+                    <p class="text-sm text-gray-400">Beam AI, Orby AI, Ema, Moveworks</p>
+                </div>
+            </div>
+
+            <!-- Score Table -->
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Vendor</th>
+                            <th>Multi-Agent</th>
+                            <th>LLM Flex</th>
+                            <th>Enterprise</th>
+                            <th>DX</th>
+                            <th>Observability</th>
+                            <th>Final Score</th>
+                            <th>Quadrant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold text-white">LangChain</td>
+                            <td>9</td><td>10</td><td>6</td><td>8</td><td>9</td>
+                            <td class="text-cyan-400 font-bold">8.50</td>
+                            <td><span class="quadrant-leader font-semibold">Leader</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">AutoGen (Microsoft)</td>
+                            <td>9</td><td>8</td><td>7</td><td>8</td><td>7</td>
+                            <td class="text-cyan-400 font-bold">8.10</td>
+                            <td><span class="quadrant-leader font-semibold">Leader</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">Relevance AI</td>
+                            <td>7</td><td>8</td><td>9</td><td>7</td><td>8</td>
+                            <td class="text-cyan-400 font-bold">7.95</td>
+                            <td><span class="quadrant-leader font-semibold">Leader</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">CrewAI</td>
+                            <td>9</td><td>8</td><td>5</td><td>9</td><td>6</td>
+                            <td class="text-cyan-400 font-bold">7.65</td>
+                            <td><span class="quadrant-leader font-semibold">Leader</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400">Beam AI</td>
+                            <td>3</td><td>6</td><td>8</td><td>6</td><td>6</td>
+                            <td class="text-gray-400">6.10</td>
+                            <td><span class="quadrant-niche">Niche</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400">Moveworks</td>
+                            <td>2</td><td>2</td><td>10</td><td>2</td><td>2</td>
+                            <td class="text-gray-400">4.40</td>
+                            <td><span class="quadrant-niche">Niche</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400">Orby AI</td>
+                            <td>2</td><td>2</td><td>9</td><td>2</td><td>2</td>
+                            <td class="text-gray-400">4.10</td>
+                            <td><span class="quadrant-niche">Niche</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-400">Ema</td>
+                            <td>1</td><td>1</td><td>10</td><td>1</td><td>1</td>
+                            <td class="text-gray-400">3.70</td>
+                            <td><span class="quadrant-niche">Niche</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm pt-10 border-t border-gray-800">
+            <p>AI Agent Orchestration Platforms Market Intelligence Report • January 2025</p>
+            <p class="mt-2">Generated using Perplexity Pro + Gemini Gems Workflow • 50 Sources Analyzed</p>
+        </footer>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Orchestration Market Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg-primary: 220 20% 10%; /* Dark Slate */
+            --color-bg-secondary: 220 20% 15%; /* Slightly Lighter Slate */
+            --color-bg-tertiary: 220 20% 20%; /* Even Lighter Slate */
+            --color-accent-blue: 210 90% 65%; /* Vibrant Blue */
+            --color-accent-purple: 270 70% 65%; /* Vibrant Purple */
+            --color-text-light: 220 20% 90%; /* Light Grey */
+            --color-text-muted: 220 15% 70%; /* Muted Grey */
+            --color-leader: 140 70% 55%; /* Bright Green */
+            --color-visionary: 40 90% 60%; /* Warm Orange */
+            --color-challenger: 200 80% 60%; /* Cyan Blue */
+            --color-niche: 0 0% 70%; /* Light Grey for Niche */
+        }
+
+        body {
+            background-color: hsl(var(--color-bg-primary));
+            color: hsl(var(--color-text-light));
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .font-display { font-family: 'Outfit', sans-serif; }
+
+        .card-gradient-border {
+            position: relative;
+            background: hsl(var(--color-bg-secondary));
+            border-radius: 1.5rem; /* Rounded xl */
+            padding: 2px; /* For the border effect */
+            overflow: hidden;
+        }
+
+        .card-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1.5rem;
+            padding: 2px; /* This creates the inner content padding */
+            background: linear-gradient(135deg, hsl(var(--color-accent-blue)), hsl(var(--color-accent-purple)));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: 0;
+        }
+
+        .card-gradient-border > .card-content {
+            position: relative;
+            background: hsl(var(--color-bg-secondary));
+            border-radius: 1.5rem; /* Match parent */
+            padding: 2rem;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .glass-bg {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 8px;
+            border-radius: 9999px; /* Full rounded */
+            background-color: hsl(var(--color-bg-tertiary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, hsl(var(--color-accent-blue)), hsl(var(--color-accent-purple)));
+            transition: width 0.5s ease-out;
+        }
+
+        /* Hover effects for interactive elements */
+        .btn-ghost:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Quadrant specific colors */
+        .quadrant-Leader { fill: hsl(var(--color-leader)); }
+        .quadrant-Visionary { fill: hsl(var(--color-visionary)); }
+        .quadrant-Challenger { fill: hsl(var(--color-challenger)); }
+        .quadrant-Niche { fill: hsl(var(--color-niche)); }
+
+        .quadrant-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            fill: hsl(var(--color-text-light));
+            text-anchor: middle;
+            dominant-baseline: central;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: hsl(var(--color-bg-tertiary));
+            color: hsl(var(--color-text-light));
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            z-index: 10;
+        }
+        .dot:hover + .tooltip {
+            opacity: 1;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: hsl(var(--color-bg-primary));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: hsl(var(--color-bg-tertiary));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: hsl(var(--color-accent-purple));
+        }
+
+        /* Responsive adjustments for layout */
+        @media (max-width: 768px) {
+            .grid-bento {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-primary': `hsl(var(--color-bg-primary))`,
+                        'bg-secondary': `hsl(var(--color-bg-secondary))`,
+                        'bg-tertiary': `hsl(var(--color-bg-tertiary))`,
+                        'accent-blue': `hsl(var(--color-accent-blue))`,
+                        'accent-purple': `hsl(var(--color-accent-purple))`,
+                        'text-light': `hsl(var(--color-text-light))`,
+                        'text-muted': `hsl(var(--color-text-muted))`,
+                        'quadrant-leader': `hsl(var(--color-leader))`,
+                        'quadrant-visionary': `hsl(var(--color-visionary))`,
+                        'quadrant-challenger': `hsl(var(--color-challenger))`,
+                        'quadrant-niche': `hsl(var(--color-niche))`,
+                    },
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'scale-in': 'scaleIn 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="font-body min-h-screen">
+    <div class="container mx-auto px-4 py-8 md:px-8 max-w-7xl">
+        <!-- Header & Title -->
+        <header class="text-center mb-16 animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-display font-bold leading-tight text-accent-blue mb-4">
+                AI Agent Orchestration Market <br class="hidden md:inline"> Competitive Analysis
+            </h1>
+            <p class="text-lg md:text-xl text-text-muted max-w-3xl mx-auto">
+                A comprehensive evaluation of vendors, segmenting leaders from niche players in the evolving landscape of AI agent orchestration.
+            </p>
+        </header>
+
+        <!-- Executive Summary Section - Glassmorphism Card -->
+        <section class="card-gradient-border mb-16 animate-scale-in delay-100">
+            <div class="card-content">
+                <h2 class="text-3xl font-display font-bold mb-6 text-text-light">Executive Summary</h2>
+                <p class="text-text-muted leading-relaxed mb-4">
+                    The AI Agent Orchestration market is segmented into open-source frameworks/platforms (LangChain, CrewAI, AutoGen, Relevance AI) and specialized enterprise products (Orby AI, Ema, Moveworks, Beam AI). Leaders are characterized by strong current execution and a clear future vision. Open-source solutions excel in developer-centric features and innovation, aligning well with the core requirements of an agent orchestration <span class="text-accent-blue font-semibold italic">platform</span>. Specialized product vendors, while strong in their specific domains, are classified as Niche Players when evaluated against broader orchestration platform criteria due to their limited flexibility in building custom multi-agent systems.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                    <div class="p-5 rounded-xl glass-bg">
+                        <h3 class="font-display text-xl font-semibold text-accent-blue mb-2">Leaders</h3>
+                        <p class="text-text-muted text-sm">Strong execution, clear future vision.</p>
+                    </div>
+                    <div class="p-5 rounded-xl glass-bg">
+                        <h3 class="font-display text-xl font-semibold text-quadrant-visionary mb-2">Visionaries</h3>
+                        <p class="text-text-muted text-sm">Future-oriented, potential to disrupt.</p>
+                    </div>
+                    <div class="p-5 rounded-xl glass-bg">
+                        <h3 class="font-display text-xl font-semibold text-quadrant-challenger mb-2">Challengers</h3>
+                        <p class="text-text-muted text-sm">Strong current position, growing fast.</p>
+                    </div>
+                    <div class="p-5 rounded-xl glass-bg">
+                        <h3 class="font-display text-xl font-semibold text-quadrant-niche mb-2">Niche Players</h3>
+                        <p class="text-text-muted text-sm">Specialized offerings, limited scope.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Criteria Table -->
+        <section class="mb-16 animate-fade-in-up delay-200">
+            <h2 class="text-3xl font-display font-bold mb-8 text-text-light text-center">Custom Criteria for Evaluation</h2>
+            <div class="overflow-x-auto card-gradient-border">
+                <div class="card-content p-0">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-bg-tertiary">
+                            <tr>
+                                <th scope="col" class="py-3 px-6 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Criterion</th>
+                                <th scope="col" class="py-3 px-6 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Weight</th>
+                                <th scope="col" class="py-3 px-6 text-left text-xs font-medium text-text-muted uppercase tracking-wider">What to Look For</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Multi-Agent Support</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">20%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">Native multi-agent orchestration, agent-to-agent communication</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">LLM Flexibility</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">15%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">Support for multiple LLM providers (OpenAI, Anthropic, local)</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Enterprise Readiness</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">20%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">SOC2, SSO, audit logs, SLAs</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Developer Experience</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">15%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">SDK quality, documentation, community</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Observability</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">10%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">Tracing, debugging, cost tracking</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Integration Ecosystem</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">10%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">Pre-built connectors, API quality</td>
+                            </tr>
+                            <tr class="hover:bg-bg-tertiary transition-colors duration-200">
+                                <td class="py-4 px-6 whitespace-nowrap text-sm font-medium text-text-light">Pricing Transparency</td>
+                                <td class="py-4 px-6 whitespace-nowrap text-sm text-text-muted">10%</td>
+                                <td class="py-4 px-6 text-sm text-text-muted">Clear pricing, no hidden costs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quadrant Plot -->
+        <section class="mb-16 animate-scale-in delay-300">
+            <h2 class="text-3xl font-display font-bold mb-8 text-text-light text-center">Market Quadrant Plot</h2>
+            <div class="card-gradient-border">
+                <div class="card-content p-6 flex justify-center items-center">
+                    <div class="relative w-full max-w-4xl aspect-square bg-bg-tertiary rounded-lg p-6">
+                        <svg id="quadrant-chart" class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                            <!-- Quadrant Backgrounds -->
+                            <rect x="50" y="0" width="50" height="50" fill="rgba(60, 180, 120, 0.08)" /> <!-- Leader -->
+                            <rect x="0" y="0" width="50" height="50" fill="rgba(255, 193, 7, 0.08)" /> <!-- Visionary (adjusted) -->
+                            <rect x="50" y="50" width="50" height="50" fill="rgba(23, 162, 184, 0.08)" /> <!-- Challenger (adjusted) -->
+                            <rect x="0" y="50" width="50" height="50" fill="rgba(150, 150, 150, 0.08)" /> <!-- Niche -->
+
+                            <!-- Grid Lines -->
+                            <line x1="0" y1="50" x2="100" y2="50" stroke="hsl(var(--color-text-muted))" stroke-width="0.3" stroke-dasharray="2,2" />
+                            <line x1="50" y1="0" x2="50" y2="100" stroke="hsl(var(--color-text-muted))" stroke-width="0.3" stroke-dasharray="2,2" />
+
+                            <!-- Axes Labels -->
+                            <text x="50" y="98" class="text-xs font-medium" fill="hsl(var(--color-text-light))" text-anchor="middle">Execution Score</text>
+                            <text x="2" y="50" transform="rotate(-90 2 50)" class="text-xs font-medium" fill="hsl(var(--color-text-light))" text-anchor="middle">Strategy Score</text>
+
+                            <!-- Quadrant Labels -->
+                            <text x="75" y="25" class="quadrant-label" fill="hsl(var(--color-leader))">Leaders</text>
+                            <text x="25" y="25" class="quadrant-label" fill="hsl(var(--color-visionary))">Visionaries</text>
+                            <text x="75" y="75" class="quadrant-label" fill="hsl(var(--color-challenger))">Challengers</text>
+                            <text x="25" y="75" class="quadrant-label" fill="hsl(var(--color-niche))">Niche Players</text>
+
+                            <!-- Data Points will be inserted here by JS -->
+                        </svg>
+                        <div id="tooltip-container" class="absolute hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitive Scorecard -->
+        <section class="mb-16 animate-fade-in-up delay-400">
+            <h2 class="text-3xl font-display font-bold mb-8 text-text-light text-center">Competitive Scorecard</h2>
+            <div id="vendor-scorecard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Vendor cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Methodology -->
+        <section class="mb-16 animate-scale-in delay-500">
+            <h2 class="text-3xl font-display font-bold mb-8 text-text-light text-center">Methodology</h2>
+            <div class="card-gradient-border max-w-3xl mx-auto">
+                <div class="card-content">
+                    <p class="text-text-muted leading-relaxed">
+                        Vendors were scored on a scale of 1-10 for each criterion, with weights assigned to reflect importance. A final weighted score was calculated, along with a separate 'Vision Score' (1-10) for strategic innovation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evidence Gaps -->
+        <section class="mb-16 animate-fade-in-up delay-600">
+            <h2 class="text-3xl font-display font-bold mb-8 text-text-light text-center">Evidence Gaps</h2>
+            <div class="card-gradient-border">
+                <div class="card-content">
+                    <ul class="list-disc list-inside text-text-muted space-y-4">
+                        <li>
+                            <strong class="text-text-light">Orby AI, Ema, Moveworks (Multi-Agent Support, LLM Flexibility, Developer Experience, Observability):</strong> For these specialized AI <em class="text-accent-blue">products</em> rather than general-purpose agent orchestration <em class="text-accent-blue">platforms</em>, evidence for native multi-agent orchestration for developers, user-configurable LLM flexibility, or SDK quality for building agents is inherently absent. Scores reflect their nature as finished products, making direct comparison against platform-centric criteria challenging. Information on internal agent mechanisms is proprietary.
+                        </li>
+                        <li>
+                            <strong class="text-text-light">Orby AI, Ema, Moveworks (Enterprise Readiness, Pricing Transparency):</strong> Specific public documentation on SOC2 compliance, detailed SLAs, or transparent pricing tiers often requires direct vendor engagement. Scores were based on general industry expectations for established enterprise solutions.
+                        </li>
+                        <li>
+                            <strong class="text-text-light">CrewAI (Observability):</strong> While robust logging and potential for external integrations exist, specific advanced, native observability features (e.g., dedicated tracing UI, comprehensive cost tracking for agents) comparable to platforms like LangSmith are less explicitly documented or central to its current offering.
+                        </li>
+                        <li>
+                            <strong class="text-text-light">Beam AI (Multi-Agent Support):</strong> Specific evidence of native multi-agent orchestration frameworks or capabilities <em class="text-accent-blue">within</em> Beam AI itself (beyond providing infrastructure to run custom agent code) was not found, reinforcing its classification as an infrastructure provider rather than an orchestration platform.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const plotData = [
+            { "vendor": "LangChain", "strategy_score": 9, "execution_score": 8.5, "quadrant": "Leader" },
+            { "vendor": "CrewAI", "strategy_score": 8, "execution_score": 7.65, "quadrant": "Leader" },
+            { "vendor": "AutoGen (Microsoft)", "strategy_score": 9, "execution_score": 8.1, "quadrant": "Leader" },
+            { "vendor": "Relevance AI", "strategy_score": 7, "execution_score": 7.95, "quadrant": "Leader" },
+            { "vendor": "Beam AI", "strategy_score": 5, "execution_score": 6.1, "quadrant": "Niche Player" },
+            { "vendor": "Orby AI", "strategy_score": 4, "execution_score": 4.1, "quadrant": "Niche Player" },
+            { "vendor": "Ema", "strategy_score": 3, "execution_score": 3.7, "quadrant": "Niche Player" },
+            { "vendor": "Moveworks", "strategy_score": 4, "execution_score": 4.4, "quadrant": "Niche Player" }
+        ];
+
+        const vendorsData = [
+            {
+                "vendor": "LangChain",
+                "summary": "A widely adopted open-source framework for LLM applications, with robust agentic workflow support via its core framework and LangGraph. Offers extensive LLM flexibility. LangSmith provides enterprise-grade observability and security for production. Strong developer experience due to extensive documentation and a large community, though complexity can be a barrier. Vast integration ecosystem.",
+                "scores": {
+                    "Multi-Agent Support": 9, "LLM Flexibility": 10, "Enterprise Readiness": 6,
+                    "Developer Experience": 8, "Observability": 9, "Integration Ecosystem": 10,
+                    "Pricing Transparency": 9
+                },
+                "final_score": 8.5,
+                "quadrant": "Leader"
+            },
+            {
+                "vendor": "CrewAI",
+                "summary": "An innovative open-source framework built on LangChain, designed for orchestrating role-playing autonomous AI agents. Excels in native multi-agent support with an intuitive paradigm for task delegation and communication. Good LLM flexibility. Limited direct enterprise readiness features (SOC2/SSO) as an open-source project, relying on user infrastructure. Highly praised developer experience with a Pythonic API and clear documentation, fostering a rapidly growing community. Observability is improving but relies on basic logging or external integrations. Leverages LangChain's integration toolset.",
+                "scores": {
+                    "Multi-Agent Support": 9, "LLM Flexibility": 8, "Enterprise Readiness": 5,
+                    "Developer Experience": 9, "Observability": 6, "Integration Ecosystem": 7,
+                    "Pricing Transparency": 10
+                },
+                "final_score": 7.65,
+                "quadrant": "Leader"
+            },
+            {
+                "vendor": "AutoGen (Microsoft)",
+                "summary": "A framework from Microsoft enabling LLM applications using multiple agents that converse to solve tasks. Excellent native multi-agent support with flexible agent types and conversational patterns. Strong LLM flexibility, supporting OpenAI, Azure OpenAI, and custom models. Implicit enterprise readiness due to Microsoft's security best practices and Azure integration, though the library is open-source. Robust developer experience with comprehensive documentation and an active community. Provides built-in logging and conversational history for observability. Good integration ecosystem within the Python and Microsoft stack.",
+                "scores": {
+                    "Multi-Agent Support": 9, "LLM Flexibility": 8, "Enterprise Readiness": 7,
+                    "Developer Experience": 8, "Observability": 7, "Integration Ecosystem": 8,
+                    "Pricing Transparency": 10
+                },
+                "final_score": 8.1,
+                "quadrant": "Leader"
+            },
+            {
+                "vendor": "Relevance AI",
+                "summary": "A platform for building, deploying, and managing AI agents and workflows, often with a visual interface. Supports multi-agent concepts through chained agents and workflows. Good LLM flexibility. As a SaaS platform, it demonstrates strong enterprise readiness, including SOC2 Type 2 compliance, SSO, audit logs, and custom SLAs. Strong developer experience for visual builders and API users, less focused on pure code-first development. Includes built-in monitoring and usage tracking for observability. Solid integration ecosystem with various data sources and tools.",
+                "scores": {
+                    "Multi-Agent Support": 7, "LLM Flexibility": 8, "Enterprise Readiness": 9,
+                    "Developer Experience": 7, "Observability": 8, "Integration Ecosystem": 8,
+                    "Pricing Transparency": 9
+                },
+                "final_score": 7.95,
+                "quadrant": "Leader"
+            },
+            {
+                "vendor": "Beam AI",
+                "summary": "Primarily a serverless platform for deploying and running ML models, including LLMs, on GPUs. Can host AI agents but lacks native multi-agent orchestration capabilities or frameworks for agent-to-agent communication; users deploy their own orchestration code. High LLM flexibility in terms of deployable models. Strong enterprise readiness as an infrastructure provider, with SOC2 Type 2 compliance. Developer experience is geared towards MLOps and model deployment, not agent framework development. Observability features focus on deployed services and logs. Transparent pricing for compute usage.",
+                "scores": {
+                    "Multi-Agent Support": 3, "LLM Flexibility": 6, "Enterprise Readiness": 8,
+                    "Developer Experience": 6, "Observability": 6, "Integration Ecosystem": 6,
+                    "Pricing Transparency": 9
+                },
+                "final_score": 6.1,
+                "quadrant": "Niche Player"
+            },
+            {
+                "vendor": "Orby AI",
+                "summary": "An AI agent for business operations, automating specific enterprise workflows. It is a finished product that uses AI agents internally, not a platform for users to build and orchestrate custom multi-agent systems. Multi-agent support, LLM flexibility, and developer experience are not applicable from a platform perspective. High enterprise readiness as an enterprise product, though public details on certifications are limited. Integrates deeply with relevant business systems. Pricing is typically custom enterprise-level, lacking public transparency.",
+                "scores": {
+                    "Multi-Agent Support": 2, "LLM Flexibility": 2, "Enterprise Readiness": 9,
+                    "Developer Experience": 2, "Observability": 2, "Integration Ecosystem": 8,
+                    "Pricing Transparency": 3
+                },
+                "final_score": 4.1,
+                "quadrant": "Niche Player"
+            },
+            {
+                "vendor": "Ema",
+                "summary": "Workday's Enterprise Machine Assistant, a generative AI assistant integrated into the Workday platform. A specialized AI product leveraging AI agents internally, not a development platform for general AI agent orchestration. Multi-agent support, LLM flexibility, and developer experience criteria are not applicable for building custom agents. Extremely high enterprise readiness, benefiting from Workday's security, compliance, and support. Deeply integrated within Workday's enterprise applications. Pricing is bundled within Workday's offerings and is not separately transparent.",
+                "scores": {
+                    "Multi-Agent Support": 1, "LLM Flexibility": 1, "Enterprise Readiness": 10,
+                    "Developer Experience": 1, "Observability": 1, "Integration Ecosystem": 9,
+                    "Pricing Transparency": 2
+                },
+                "final_score": 3.7,
+                "quadrant": "Niche Player"
+            },
+            {
+                "vendor": "Moveworks",
+                "summary": "An AI platform specialized for employee support, automating IT, HR, and internal helpdesk functions. A highly refined enterprise SaaS product using AI agents to resolve employee issues. Does not serve as a platform for building or orchestrating custom, general-purpose AI agents. Multi-agent support, LLM flexibility (for users), and developer experience (SDKs for agent building) are low. Extremely high enterprise readiness, including SOC2 compliance, robust security, and dedicated SLAs. Strong integration ecosystem, connecting with a wide range of enterprise systems. Pricing is typically custom and not publicly transparent.",
+                "scores": {
+                    "Multi-Agent Support": 2, "LLM Flexibility": 2, "Enterprise Readiness": 10,
+                    "Developer Experience": 2, "Observability": 2, "Integration Ecosystem": 9,
+                    "Pricing Transparency": 3
+                },
+                "final_score": 4.4,
+                "quadrant": "Niche Player"
+            }
+        ];
+
+        function renderQuadrantChart() {
+            const svg = document.getElementById('quadrant-chart');
+            const tooltipContainer = document.getElementById('tooltip-container');
+
+            plotData.forEach(item => {
+                // Map scores from 1-10 to SVG coordinates 0-100
+                const x = (item.execution_score / 10) * 100;
+                const y = 100 - ((item.strategy_score / 10) * 100); // Invert Y for SVG
+
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', 2); // Radius of the dot
+                circle.setAttribute('class', `dot quadrant-${item.quadrant.replace(' ', '')} transition-transform duration-200 ease-out hover:scale-150 cursor-pointer`);
+                circle.setAttribute('data-vendor', item.vendor);
+                circle.setAttribute('data-execution', item.execution_score);
+                circle.setAttribute('data-strategy', item.strategy_score);
+                circle.setAttribute('data-quadrant', item.quadrant);
+
+                svg.appendChild(circle);
+            });
+
+            // Tooltip interactivity
+            svg.addEventListener('mouseover', function(event) {
+                const target = event.target;
+                if (target.classList.contains('dot')) {
+                    const vendor = target.getAttribute('data-vendor');
+                    const execution = target.getAttribute('data-execution');
+                    const strategy = target.getAttribute('data-strategy');
+                    const quadrant = target.getAttribute('data-quadrant');
+
+                    tooltipContainer.innerHTML = `
+                        <div class="p-2 text-sm">
+                            <strong class="text-accent-blue">${vendor}</strong><br>
+                            Execution: ${execution}<br>
+                            Strategy: ${strategy}<br>
+                            Quadrant: <span class="text-${quadrant.toLowerCase()}">${quadrant}</span>
+                        </div>
+                    `;
+                    tooltipContainer.classList.remove('hidden');
+
+                    const svgRect = svg.getBoundingClientRect();
+                    const dotRect = target.getBoundingClientRect();
+
+                    // Calculate position relative to SVG container
+                    let x = dotRect.left - svgRect.left + dotRect.width / 2;
+                    let y = dotRect.top - svgRect.top + dotRect.height / 2;
+
+                    // Adjust for tooltip size and boundary
+                    const tooltipWidth = tooltipContainer.offsetWidth;
+                    const tooltipHeight = tooltipContainer.offsetHeight;
+
+                    if (x + tooltipWidth > svgRect.width) x -= tooltipWidth;
+                    if (y + tooltipHeight > svgRect.height) y -= tooltipHeight;
+
+                    tooltipContainer.style.left = `${x + 10}px`; // Offset from dot
+                    tooltipContainer.style.top = `${y - tooltipHeight - 10}px`; // Offset from dot
+                }
+            });
+
+            svg.addEventListener('mouseout', function(event) {
+                if (event.target.classList.contains('dot')) {
+                    tooltipContainer.classList.add('hidden');
+                }
+            });
+        }
+
+
+        function renderVendorScorecards() {
+            const grid = document.getElementById('vendor-scorecard-grid');
+
+            vendorsData.forEach((vendorData, index) => {
+                const quadrantColorClass = `text-quadrant-${vendorData.quadrant.replace(' ', '-').toLowerCase()}`;
+                const vendorCard = document.createElement('div');
+                vendorCard.classList.add('card-gradient-border', 'animate-fade-in-up');
+                vendorCard.style.animationDelay = `${400 + index * 100}ms`; // Stagger animation
+
+                vendorCard.innerHTML = `
+                    <div class="card-content">
+                        <h3 class="text-2xl font-display font-bold mb-4 text-text-light">${vendorData.vendor}</h3>
+                        <div class="mb-4">
+                            <span class="inline-block text-sm font-semibold py-1 px-3 rounded-full ${quadrantColorClass} border border-current">
+                                ${vendorData.quadrant}
+                            </span>
+                        </div>
+                        <p class="text-text-muted text-sm mb-6 leading-relaxed">${vendorData.summary}</p>
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-6 text-sm mb-6">
+                            ${Object.entries(vendorData.scores).map(([criterion, score]) => `
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-text-light font-medium">${criterion}</span>
+                                        <span class="text-text-muted">${score}/10</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="width: ${score * 10}%"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="pt-4 border-t border-gray-700 flex justify-between items-center">
+                            <span class="text-text-light font-bold text-lg">Final Score:</span>
+                            <span class="text-accent-blue font-bold text-xl">${vendorData.final_score.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(vendorCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuadrantChart();
+            renderVendorScorecards();
+        });
+    </script>
+</body>
+</html>
