@@ -1,0 +1,75 @@
+# INPUT BRIEF TEMPLATE
+# Fill this before starting any new market intelligence report
+# Required fields marked with *
+
+# ============================================================
+# REPORT CONFIGURATION
+# ============================================================
+
+# * Topic of the report
+Topic: "[YOUR_TOPIC]"
+
+# * Target audience
+# Options: CIO, CTO, COO, CEO, VC, PM, Technical Buyer
+Audience: "[SELECT_AUDIENCE]"
+
+# * Geographic scope
+# Options: Global, US, EU, APAC, LATAM, MEA, or specific country
+Geography: "[SELECT_GEOGRAPHY]"
+
+# * Primary use-case focus
+# Examples: Enterprise automation, Sales agents, IT/DevOps agents, Customer support
+Use_Case_Focus: "[DESCRIBE_USE_CASE]"
+
+# * Target delivery date
+Delivery_Date: "YYYY-MM"
+
+# * Recency window for sources
+# Format: START_DATE to END_DATE (e.g., "Oct 2025 to Jan 2026")
+Recency_Window: "[START_DATE] to [END_DATE]"
+
+# ============================================================
+# OPTIONAL CONFIGURATION
+# ============================================================
+
+# Anchor pricing reference (optional)
+# Example: "typical analyst report pricing", "$5000 Gartner report"
+Anchor_Price: ""
+
+# Target vendors for competitive analysis (8-12 recommended)
+Target_Vendors:
+  - ""
+  - ""
+  - ""
+
+# Specific regulations to focus on (if known)
+Regulatory_Focus:
+  - ""
+
+# Key questions to answer
+Key_Questions:
+  - ""
+  - ""
+  - ""
+
+# ============================================================
+# OUTPUT TIERS
+# ============================================================
+
+# Which tiers to generate
+Output_Tiers:
+  Free_Brief: true      # 3-page C-Suite Trojan Horse
+  Paid_Brief_97: true   # 8-12 page Research Brief
+  Full_Report_499: true # 20-35 page Full Report
+
+# ============================================================
+# QUALITY REQUIREMENTS
+# ============================================================
+
+Quality_Config:
+  Min_Market_Size_Sources: 5
+  Min_Vendor_Sources: 5
+  Min_Adoption_Sources: 5
+  Min_Regulatory_Sources: 3
+  Require_Citations: true
+  Flag_Stale_Data: true  # Data older than 12 months
