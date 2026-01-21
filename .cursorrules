@@ -1,0 +1,20 @@
+# **CURSOR RULES: INDIE SAAS MVP**
+
+## **1. CODING PHILOSOPHY**
+
+* **Speed over Perfection:** Prefer simple, readable code over complex abstractions.  
+* **YAGNI (You Ain't Gonna Need It):** Do not over-engineer features for scale we don't have yet.  
+* **Mobile First:** Tailwind classes must prioritize mobile views (w-full before md:w-1/2).
+
+## **2. TECH STACK SPECIFICS**
+
+* **Framework:** Next.js 14 (App Router). Use Server Components by default.  
+* **Styling:** Tailwind CSS. Use clsx or tailwind-merge for conditional classes.  
+* **State:** Use React Context for global state, strictly minimal.
+
+## **3. ERROR HANDLING**
+
+* Wrap all Server Actions in a try/catch block.  
+* Return standardized error objects: { success: false, error: "User message" }.
+
+**Strategic Linkage:** Notice how the "Mobile First" constraint in .cursorrules directly links back to the "User Constraints" in AGENTS.md, which in turn would have been derived from the "Market Detective" research phase. This creates a unbroken chain of strategic intent from the first search query to the final line of code.
